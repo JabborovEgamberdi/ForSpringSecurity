@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class MyAuthService implements UserDetailsService {
-
     List<User> userList = new ArrayList<>(
             Arrays
                     .asList(
