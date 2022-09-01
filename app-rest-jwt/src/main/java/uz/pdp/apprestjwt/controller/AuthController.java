@@ -30,7 +30,7 @@ public class AuthController {
             String token = jwtProvider.generateToken(loginDTO.getUsername());
             return ResponseEntity.ok(token);
         }
-        return ResponseEntity.status(401).body("Login yoki parol xato");
+        return ResponseEntity.status(401).body("Login yoki parol xato!");
     }
 
 }
