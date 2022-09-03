@@ -21,6 +21,7 @@ public class AuthController {
     private final MyAuthService myAuthService;
 
     private final JwtProvider jwtProvider;
+
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
         UserDetails userDetails = myAuthService.loadUserByUsername(loginDTO.getPassword());
