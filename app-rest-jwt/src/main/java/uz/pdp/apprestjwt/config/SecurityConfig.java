@@ -1,6 +1,7 @@
 package uz.pdp.apprestjwt.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -8,10 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import uz.pdp.apprestjwt.services.MyAuthService;
 
 @EnableWebSecurity
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MyAuthService myAuthService;
+    @Autowired
+    private MyAuthService myAuthService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
