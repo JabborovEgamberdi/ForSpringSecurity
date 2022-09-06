@@ -1,7 +1,6 @@
 package uz.pdp.apprestjwt.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,18 +14,16 @@ import uz.pdp.apprestjwt.services.MyAuthService;
 
 @RestController
 @RequestMapping("/api/auth")
-//@AllArgsConstructor
+@AllArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private MyAuthService myAuthService;
+    private final MyAuthService myAuthService;
 
-    @Autowired
-    private JwtProvider jwtProvider;
+    private final JwtProvider jwtProvider;
 
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
-        UserDetails userDetails = myAuthService.loadUserByUsername(loginDTO.getPassword());
+        UserDetails userDetails = myAuthService.loadUserByUsername(loginDTO.getUsername());
         boolean existUser = userDetails.getPassword().equals(loginDTO.getPassword());
         if (existUser) {
             String token = jwtProvider.generateToken(loginDTO.getUsername());

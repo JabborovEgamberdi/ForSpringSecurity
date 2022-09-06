@@ -9,11 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import uz.pdp.apprestjwt.services.MyAuthService;
 
 @EnableWebSecurity
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyAuthService myAuthService;
+    private final MyAuthService myAuthService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
