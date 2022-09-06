@@ -15,12 +15,14 @@ import uz.pdp.apprestjwt.services.MyAuthService;
 
 @RestController
 @RequestMapping("/api/auth")
-@AllArgsConstructor
+//@AllArgsConstructor
 public class AuthController {
 
-    private final MyAuthService myAuthService;
+    @Autowired
+    private MyAuthService myAuthService;
 
-    private final JwtProvider jwtProvider;
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
