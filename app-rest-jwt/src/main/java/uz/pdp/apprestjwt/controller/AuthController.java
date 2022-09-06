@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +22,14 @@ public class AuthController {
 
     private final JwtProvider jwtProvider;
 
+    private final PasswordEncoder passwordEncoder;
+
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
         UserDetails userDetails = myAuthService.loadUserByUsername(loginDTO.getUsername());
-        boolean existUser = userDetails.getPassword().equals(loginDTO.getPassword());
-        if (existUser) {
+        boolean matches = passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword());
+//        boolean existUser = userDetails.getPassword().equals(loginDTO.getPassword());
+        if (matches) {
             String token = jwtProvider.generateToken(loginDTO.getUsername());
             return ResponseEntity.ok(token);
         }
