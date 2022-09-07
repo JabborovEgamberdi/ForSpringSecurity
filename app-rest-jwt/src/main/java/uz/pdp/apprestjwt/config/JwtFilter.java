@@ -13,7 +13,11 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println(request.getHeader("Authorization"));
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        System.out.println(authorization);
     }
 }
