@@ -1,5 +1,6 @@
 package uz.pdp.apprestjwt.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,11 +14,8 @@ import uz.pdp.apprestjwt.services.MyAuthService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MyAuthService myAuthService;
-
-    public SecurityConfig(MyAuthService myAuthService) {
-        this.myAuthService = myAuthService;
-    }
+    @Autowired
+    MyAuthService myAuthService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {

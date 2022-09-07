@@ -1,5 +1,6 @@
 package uz.pdp.apprestjwt.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,14 +20,11 @@ import uz.pdp.apprestjwt.services.MyAuthService;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final JwtProvider jwtProvider;
+    @Autowired
+    JwtProvider jwtProvider;
 
-    private final AuthenticationManager authenticationManager;
-
-    public AuthController(JwtProvider jwtProvider, AuthenticationManager authenticationManager) {
-        this.jwtProvider = jwtProvider;
-        this.authenticationManager = authenticationManager;
-    }
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
