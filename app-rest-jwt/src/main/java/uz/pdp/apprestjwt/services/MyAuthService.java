@@ -1,6 +1,5 @@
 package uz.pdp.apprestjwt.services;
 
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,10 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class MyAuthService implements UserDetailsService {
 
+
     private final PasswordEncoder passwordEncoder;
+
+    public MyAuthService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

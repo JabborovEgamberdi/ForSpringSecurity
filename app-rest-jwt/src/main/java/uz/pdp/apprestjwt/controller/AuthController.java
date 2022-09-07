@@ -1,8 +1,10 @@
 package uz.pdp.apprestjwt.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +17,33 @@ import uz.pdp.apprestjwt.services.MyAuthService;
 
 @RestController
 @RequestMapping("/api/auth")
-@AllArgsConstructor
 public class AuthController {
-
-    private final MyAuthService myAuthService;
 
     private final JwtProvider jwtProvider;
 
-    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
+    public AuthController(JwtProvider jwtProvider, AuthenticationManager authenticationManager) {
+        this.jwtProvider = jwtProvider;
+        this.authenticationManager = authenticationManager;
+    }
+
+    @PostMapping("/login")
+    public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
+
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+            String token = jwtProvider.generateToken(loginDTO.getUsername());
+            return ResponseEntity.ok(token);
+        } catch (BadCredentialsException exception) {
+            return ResponseEntity.status(401).body("Login yoki parol xato!");
+        }
+
+    }
+
+}
+
+/*  with password encoder
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
         UserDetails userDetails = myAuthService.loadUserByUsername(loginDTO.getUsername());
@@ -35,5 +55,4 @@ public class AuthController {
         }
         return ResponseEntity.status(401).body("Login yoki parol xato!");
     }
-
-}
+*/
