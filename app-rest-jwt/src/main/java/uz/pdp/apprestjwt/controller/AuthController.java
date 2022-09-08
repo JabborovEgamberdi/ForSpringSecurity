@@ -21,27 +21,32 @@ import uz.pdp.apprestjwt.services.MyAuthService;
 public class AuthController {
 
     @Autowired
+    MyAuthService myAuthService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
     JwtProvider jwtProvider;
 
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @PostMapping("/login")
-    public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
+//    @PostMapping("/login")
+//    public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
+//
+//        try {
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+//            String token = jwtProvider.generateToken(loginDTO.getUsername());
+//            System.out.println("token = " + token);
+//            return ResponseEntity.ok(token);
+//        } catch (BadCredentialsException exception) {
+//            return ResponseEntity.status(401).body("Login yoki parol xato!");
+//        }
+//
+//    }
 
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
-            String token = jwtProvider.generateToken(loginDTO.getUsername());
-            return ResponseEntity.ok(token);
-        } catch (BadCredentialsException exception) {
-            return ResponseEntity.status(401).body("Login yoki parol xato!");
-        }
-
-    }
-
-}
-
-/*  with password encoder
+//  with password encoder
     @PostMapping("/login")
     public HttpEntity<?> loginToSystem(@RequestBody LoginDTO loginDTO) {
         UserDetails userDetails = myAuthService.loadUserByUsername(loginDTO.getUsername());
@@ -49,8 +54,10 @@ public class AuthController {
 //        boolean existUser = userDetails.getPassword().equals(loginDTO.getPassword());
         if (matches) {
             String token = jwtProvider.generateToken(loginDTO.getUsername());
+            System.out.println("token = " + token);
             return ResponseEntity.ok(token);
         }
         return ResponseEntity.status(401).body("Login yoki parol xato!");
     }
-*/
+}
+
