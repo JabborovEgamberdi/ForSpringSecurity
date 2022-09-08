@@ -25,29 +25,29 @@ public class JwtProvider {
         return token;
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts
-                    .parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public String getUsernameFromToken(String token) {
-        return
-                Jwts
-                        .parser()
-                        .setSigningKey(secret)
-                        .parseClaimsJws(token)
-                        .getBody()
-                        .getSubject();
-    }
+//    public boolean validateToken(String token) {
+//        try {
+//            Jwts
+//                    .parser()
+//                    .setSigningKey(secret)
+//                    .parseClaimsJws(token)
+//                    .getBody();
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+//
+//    public String getUsernameFromToken(String token) {
+//        String username = Jwts
+//                .parser()
+//                .setSigningKey(secret)
+//                .parseClaimsJws(token)
+//                .getBody()
+//                .getSubject();
+//        return username;
+//    }
 
 //    public static void main(String[] args) {
 //        String token = generateToken("egamberdi");
