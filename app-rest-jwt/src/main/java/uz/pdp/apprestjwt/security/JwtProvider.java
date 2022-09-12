@@ -10,9 +10,9 @@ import java.util.Date;
 public class JwtProvider {
 
     static long expireTime = 36_000_000;
-    static String secret = "JSONWebToken";
+    static String secret = "JSONWebToken1";
 
-    public String generateToken(String username) {
+    public static String generateToken(String username) {
         Date expireDate = new Date(System.currentTimeMillis() + expireTime);
 
         String token = Jwts
