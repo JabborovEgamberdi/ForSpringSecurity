@@ -50,7 +50,7 @@ public class JwtProvider {
     }
 
 //    public static void main(String[] args) {
-//        String token = generateToken("egamberdi");
+//        String token = generateToken("pdp");
 //        System.out.println(token);
 //    }
 }
