@@ -28,6 +28,10 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String token = httpServletRequest.getHeader("Authorization");
+        System.out.println("token = " + token);
+
+//        String username = "JWT_Token";
+//        String token = jwtProvider.generateToken(username);
 //        System.out.println("token = " + token);
         if (token != null && token.startsWith("Bearer")) {
             token = token.substring(7);
@@ -41,5 +45,5 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
     }
-
 }
+
